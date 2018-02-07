@@ -12,9 +12,9 @@ public class KafkaStateServer {
 
     public final static int APPLICATION_SERVER_PORT = 9090;
 
-    public static KafkaStateHandler handler;
+    private static KafkaStateHandler handler;
 
-    public static KakfaStateService.Processor processor;
+    private static KakfaStateService.Processor processor;
 
     public static void run(KafkaStreams stream) {
         try {
@@ -33,7 +33,7 @@ public class KafkaStateServer {
         }
     }
 
-    public static void simple(KakfaStateService.Processor processor) {
+    private static void simple(KakfaStateService.Processor processor) {
         try {
             TServerTransport serverTransport = new TServerSocket(APPLICATION_SERVER_PORT);
             TServer.Args args = new TServer.Args(serverTransport)
