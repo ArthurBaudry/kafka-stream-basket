@@ -1,0 +1,15 @@
+{
+  "type" : "record",
+  "name" : "prices",
+  "fields" : [ {
+    "name" : "id",
+    "type" : "int"
+  }, {
+    "name" : "item",
+    "type" : "string"
+  }, {
+    "name" : "price",
+    "type" : "float"
+  } ],
+  "connect.name" : "prices"
+}
