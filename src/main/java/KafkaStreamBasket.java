@@ -1,3 +1,4 @@
+import serde.SpecificAvroSerde;
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serde;
@@ -8,7 +9,6 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KStreamBuilder;
 import rpc.KafkaStateServer;
-import serde.SpecificAvroSerde;
 
 import java.util.Collections;
 import java.util.Properties;
@@ -16,12 +16,12 @@ import java.util.Properties;
 /**
  * Created by octo-art on 15/05/2017.
  */
-public class KafkaStreamsExample {
+public class KafkaStreamBasket {
 
     private final static String SCHEMA_REGISTRY_URL = "http://localhost:8081";
 
 
-    public final static void main(String... args) throws Exception {
+    public static void main(String... args) throws Exception {
 
         KStreamBuilder builder = new KStreamBuilder();
 
@@ -38,7 +38,7 @@ public class KafkaStreamsExample {
 
         final Serde<String> stringSerde = Serdes.String();
         final Serde<prices> specificAvroSerde = new SpecificAvroSerde<>();
-        // Note how we must manually call `configure()` on this serde to configure the schema registry
+        // Note how we must manually call `configure()` on this com.octo.serde to configure the schema registry
         // url.  This is different from the case of setting default serdes (see `streamsConfiguration`
         // above), which will be auto-configured based on the `StreamsConfiguration` instance.
         final boolean isKeySerde = false;
@@ -59,7 +59,7 @@ public class KafkaStreamsExample {
                 .aggregate(
                     () -> 0L, // initializer
                     (aggKey, newValue, aggValue) -> aggValue + newValue, // adder
-                    Serdes.Long(), // serde for aggregate value
+                    Serdes.Long(), // com.octo.serde for aggregate value
                 "basket-store");
 
         prices.to(stringSerde, specificAvroSerde,"confluent-out-prices");
